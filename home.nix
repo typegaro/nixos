@@ -13,9 +13,11 @@
 
   imports = [
     ./modules/shell/shell.nix
+    ./modules/term/ghostty.nix 
     ./modules/sxhkd.nix
   ];
   zsh-config.enable = true;
+  ghostty.enbale = true;
 
   programs.git = {
     enable = true;
@@ -25,6 +27,4 @@
       gs = "status";
     };
   };
-
-  programs.home-manager.enable = true;
 }
