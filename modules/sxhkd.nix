@@ -1,11 +1,8 @@
 { lib, config, pkgs, ... }:
 
-let
-  cfg = config.modules.sxhkd;
-in
 {
-  options.modules.sxhkd.enable = lib.mkEnableOption "SXHKD keybindings";
-  config = lib.mkIf cfg.enable {
+  options."sxhkd".enable = lib.mkEnableOption "SXHKD keybindings";
+  config = lib.mkIf config."sxhkd".enable {
     services.sxhkd = {
       enable = true;
       keybindings = {

@@ -10,6 +10,7 @@
     redshift
     discord
   ];
+  
 
   imports = [
     ./modules/shell/shell.nix
@@ -17,14 +18,16 @@
     ./modules/sxhkd.nix
   ];
   zsh-config.enable = true;
-  ghostty.enbale = true;
+  ghostty.enable = true;
+  sxhkd.enable = true;
 
   programs.git = {
     enable = true;
     userName = "typegaro";
     userEmail = "lorenzo.di.giovanni00@gmail.com";
     aliases = {
-      gs = "status";
+      s = "status";
+      cvn = "commit -m\"very nice\"";
     };
   };
 }
