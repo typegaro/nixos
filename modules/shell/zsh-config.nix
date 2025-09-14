@@ -109,7 +109,7 @@
         "docker-nuke" = "docker rm -f $(docker ps -aq)";
       };
 
-      initExtra = ''
+      initContent = ''
         # colori + prompt
         autoload -U colors && colors
         PS1="%{$fg[magenta]%}%~%b λ "

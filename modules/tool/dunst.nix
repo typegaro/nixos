@@ -1,12 +1,8 @@
 { config, lib, pkgs, ... }:
-let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.notifications.dunst;
-in
 {
-  options.my.notifications.dunst.enable = mkEnableOption "Dunst notification daemon";
+  options."dunst".enable = lib.mkEnableOption "Dunst notification daemon";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf config."dunst".enable {
     services.dunst = {
       enable = true;
       package = pkgs.dunst;
