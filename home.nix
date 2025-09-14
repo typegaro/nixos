@@ -22,6 +22,7 @@ in
     nitrogen
     redshift
     ripgrep
+    toybox
   ] ++ [
     bookmarks
     config

@@ -6,56 +6,72 @@
     services.dunst = {
       enable = true;
       package = pkgs.dunst;
+
       settings = {
         global = {
           monitor = 0;
           follow = "mouse";
+
           width = 300;
-          height = 10;
+          # Sintassi nuova: (min, max). Dinamico fino a 300px.
+          height = "(0, 300)";
+
           origin = "top-right";
-          offset = "20x20";
-          scale = 0;
-          transparency = 0;
-          frame_color = "#89b4fa";
-          frame_width = 2;
+          # Sintassi nuova: (x, y)
+          offset = "(16, 16)";
+
+          # Look minimal
+          frame_width = 0;
           separator_color = "auto";
+          separator_height = 1;
+
+          padding = 8;
+          horizontal_padding = 10;
           line_height = 0;
-          idle_threshold = 120;
+          corner_radius = 4;
           font = "JetBrainsMono Nerd Font 10";
-          corner_radius = 6;
-          markup = "full";
-          format = "<b>%s</b>\\n%b";
+
+          # Niente markup e format semplice.
+          markup = "yes";
+          format = ''%s\n%b'';
           alignment = "left";
-          show_indicators = "yes";
+          ellipsize = "end";
+
+          show_indicators = "no";
           word_wrap = "yes";
           ignore_newline = "no";
           show_age_threshold = 60;
+
+          # Niente icone per essere minimal
+          icon_position = "On";
+
           browser = "${pkgs.xdg-utils}/bin/xdg-open";
           dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
-          icon_theme = "Papirus-Dark";
+
           mouse_left_click = "close_current";
           mouse_middle_click = "do_action";
           mouse_right_click = "close_all";
         };
 
+        # One Dark
         urgency_low = {
-          background = "#1e1e2e";
-          foreground = "#a6adc8";
-          frame_color = "#89b4fa";
+          background = "#282c34";
+          foreground = "#abb2bf";
+          frame_color = "#61afef";
           timeout = 3;
         };
 
         urgency_normal = {
-          background = "#1e1e2e";
-          foreground = "#cdd6f4";
-          frame_color = "#89b4fa";
+          background = "#282c34";
+          foreground = "#abb2bf";
+          frame_color = "#61afef";
           timeout = 5;
         };
 
         urgency_critical = {
-          background = "#1e1e2e";
-          foreground = "#f38ba8";
-          frame_color = "#f38ba8";
+          background = "#282c34";
+          foreground = "#e06c75";
+          frame_color = "#e06c75";
           timeout = 0;
         };
       };
