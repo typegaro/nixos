@@ -9,7 +9,7 @@
       font-family = "Mononoki Nerd Font"
       font-size = 12
       window-decoration = false
-      background-opacity = 0.95
+      background-opacity = 0.8
       cursor-style = block
       shell-integration = zsh
     '';

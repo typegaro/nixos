@@ -25,17 +25,22 @@ in
     nodejs_24
     docker
     python314
+    pnpm
     #tools
     k9s
     opencode
     opentofu
     helm
     kubectl
+    tmux
+    taskwarrior3
     # utility
     nitrogen
     redshift
     ripgrep
     toybox
+    xclip
+    nix-index
   ] ++ [
     bookmarks
     config
@@ -57,6 +62,8 @@ in
   ghostty.enable = true;
   sxhkd.enable = true;
   dunst.enable = true;
+  tmux.enable = true;
+  k9s.enable = true;
 
   programs.git = {
     enable = true;
