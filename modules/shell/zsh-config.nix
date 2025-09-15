@@ -1,4 +1,4 @@
- { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options."zsh-config".enable = lib.mkEnableOption "Enable custom zsh config";
@@ -32,7 +32,7 @@
         ltf = "eza --icons -aT --color=always --group-directories-first -L 100";
 
         # update (NixOS)
-        update = "sudo nixos-rebuild switch";
+        nixs= "sudo nixos-rebuild switch --flake ~/Nix";
 
         # task
         ts = "task status";
@@ -72,16 +72,7 @@
         dog = "bat";
 
         # shortcuts
-        bashrc = "nvim ~/.bashrc";
         compose = "setxkbmap -layout us -option compose:menu";
-        sshfix = "TERM=linux";
-        cclear = "clear; colorscript random | tail -n +2";
-        search = "sudo find / -iname ";
-        cleanup = "sudo pacman -Rns $(pacman -Qtdq)";
-        parsua = "paru -Sua --noconfirm";
-
-        # pacman - paru (duplicato consolidato)
-        paruUp = "paru -Sua --noconfirm";
 
         # grep
         grep = "grep --color=auto";
@@ -94,7 +85,7 @@
         free = "free -m";
         crypto = "curl -s rate.sx";
         price = "curl -s rate.sx/doge |awk 'NR==34'";
-        doge = "curl -s rate.sx/doge";
+        zcash= "curl -s rate.sx/zcash";
         btc = "curl -s rate.sx/btc";
         cpu = "ps ax -o cmd,%cpu --sort=-%cpu | head ";
         ram = "ps ax -o cmd,%mem --sort=-%mem | head ";
@@ -104,17 +95,13 @@
         moon = "curl wttr.in/moon";
         weather = "curl --silent wttr.in | head -n 6";
         coffee = "curl -L git.io/coffee ";
-
-        # docker
-        "docker-nuke" = "docker rm -f $(docker ps -aq)";
       };
 
       initContent = ''
         # colori + prompt
         autoload -U colors && colors
         PS1="%{$fg[magenta]%}%~%b λ "
-	neofetch
-
+        neofetch
       '';
     };
   };

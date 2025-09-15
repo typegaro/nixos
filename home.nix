@@ -13,11 +13,24 @@ in
   home.username = "garo";
   home.homeDirectory = "/home/garo";
   home.stateVersion = "25.05";
-
+  services.picom = {
+      enable = true;
+      vSync = true;
+  };
   home.packages = with pkgs; [
     discord
+    prismlauncher
+    flameshot
     #code
     nodejs_24
+    docker
+    python314
+    #tools
+    k9s
+    opencode
+    opentofu
+    helm
+    kubectl
     # utility
     nitrogen
     redshift
