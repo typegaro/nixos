@@ -21,11 +21,14 @@ in
     discord
     prismlauncher
     flameshot
+    localsend
     #code
     nodejs_24
     docker
     python314
     pnpm
+    bun
+    poetry
     #tools
     k9s
     opencode
@@ -34,6 +37,7 @@ in
     kubectl
     tmux
     taskwarrior3
+    jq
     # utility
     nitrogen
     redshift
@@ -41,6 +45,7 @@ in
     toybox
     xclip
     nix-index
+    playerctl
   ] ++ [
     bookmarks
     config

@@ -8,6 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/virtualbox.nix
+      ./modules/bluetooth.nix
+      ./modules/pipewire.nix
     ];
 
   # Bootloader.
@@ -99,6 +102,10 @@
       enable = true;
       rootless.enable = true;
   };
+
+  # VirtualBox module
+  virtualbox.enable = true;
+  pipewire.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
