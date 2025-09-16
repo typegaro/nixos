@@ -21,16 +21,16 @@ let
   };
 
   config = lib.mkIf cfg.enable {
-    security.rtkit.enable = true; # Real-time scheduling for better audio performance
-    hardware.pulseaudio.enable = false; # Disable legacy PulseAudio daemon
+    security.rtkit.enable = true;    
+    hardware.pulseaudio.enable = false; 
 
     services.pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
-      pulse.enable = true; # Provides PulseAudio compatibility layer
-      jack.enable = true;  # JACK compatibility
-      wireplumber.enable = true; # Session manager (provides wpctl)
+      pulse.enable = true;
+      jack.enable = true;
+      wireplumber.enable = true;
       extraConfig = lib.mkIf cfg.lowLatency {
         pipewire."10-low-latency" = {
           "context.properties" = {
