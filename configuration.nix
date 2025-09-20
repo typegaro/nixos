@@ -11,6 +11,7 @@
       ./modules/virtualbox.nix
       ./modules/bluetooth.nix
       ./modules/pipewire.nix
+      ./modules/nvidia.nix
     ];
 
   # Bootloader.

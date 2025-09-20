@@ -14,65 +14,115 @@
       '';
 
       "k9s/skins/one_dark.yaml".text = ''
+        foreground: &foreground "#abb2bf"
+        background: &background "#282c34"
+        black: &black "#080808"
+        blue: &blue "#61afef"
+        green: &green "#98c379"
+        grey: &grey "#abb2bf"
+        orange: &orange "#ffb86c"
+        purple: &purple "#c678dd"
+        red: &red "#e06370"
+        yellow: &yellow "#e5c07b"
+        yellow_bright: &yellow_bright "#d19a66"
+        
+        # Skin...
         k9s:
           body:
-            fgColor: '#abb2bf'
-            bgColor: '#282c34'
-            logoColor: '#61afef'
-
+            fgColor: *foreground
+            bgColor: *background
+            logoColor: *green
+          prompt:
+            fgColor: *foreground
+            bgColor: *background
+            suggestColor: *orange
           info:
-            fgColor: '#abb2bf'
-            sectionColor: '#61afef'
-
+            fgColor: *grey
+            sectionColor: *green
+          help:
+            fgColor: *foreground
+            bgColor: *background
+            keyColor: *yellow
+            numKeyColor: *blue
+            sectionColor: *purple
+          dialog:
+            fgColor: *black
+            bgColor: *background
+            buttonFgColor: *foreground
+            buttonBgColor: *green
+            buttonFocusFgColor: *black
+            buttonFocusBgColor: *blue
+            labelFgColor: *orange
+            fieldFgColor: *blue
           frame:
             border:
-              fgColor: '#61afef'
-              focusColor: '#c678dd'
-
+              fgColor: *green
+              focusColor: *green
             menu:
-              fgColor: '#abb2bf'
-              keyColor: '#61afef'
-              numKeyColor: '#e5c07b'
-
+              fgColor: *grey
+              keyColor: *yellow
+              numKeyColor: *yellow
             crumbs:
-              fgColor: '#282c34'
-              bgColor: '#61afef'
-              activeColor: '#c678dd'
-
+              fgColor: *black
+              bgColor: *green
+              activeColor: *yellow
             status:
-              newColor: '#98c379'
-              modifyColor: '#e5c07b'
-              addColor: '#61afef'
-              errorColor: '#e06c75'
-              highlightColor: '#56b6c2'
-              killColor: '#d19a66'
-              completedColor: '#5c6370'
-
+              newColor: *blue
+              modifyColor: *green
+              addColor: *grey
+              pendingColor: *orange
+              errorColor: *red
+              highlightColor: *yellow
+              killColor: *purple
+              completedColor: *grey
             title:
-              fgColor: '#abb2bf'
-              bgColor: '#282c34'
-              highlightColor: '#61afef'
-              counterColor: '#c678dd'
-              filterColor: '#e5c07b'
-
+              fgColor: *blue
+              bgColor: *background
+              highlightColor: *purple
+              counterColor: *foreground
+              filterColor: *blue
           views:
+            charts:
+              bgColor: *background
+              defaultDialColors:
+                - *green
+                - *red
+              defaultChartColors:
+                - *green
+                - *red
             table:
-              fgColor: '#abb2bf'
-              bgColor: '#282c34'
-              cursorColor: '#61afef'
+              fgColor: *yellow
+              bgColor: *background
+              cursorFgColor: *black
+              cursorBgColor: *blue
+              markColor: *yellow_bright
               header:
-                fgColor: '#abb2bf'
-                bgColor: '#282c34'
-                sorterColor: '#61afef'
-
+                fgColor: *grey
+                bgColor: *background
+                sorterColor: *orange
+            xray:
+              fgColor: *blue
+              bgColor: *background
+              cursorColor: *foreground
+              graphicColor: *yellow_bright
+              showIcons: false
             yaml:
-              keyColor: '#61afef'
-              colonColor: '#abb2bf'
-              valueColor: '#98c379'
-
+              keyColor: *red
+              colonColor: *grey
+              valueColor: *grey
             logs:
-              fgColor: '#abb2bf'
-              bgColor: '#282c34'
+              fgColor: *grey
+              bgColor: *background
+              indicator:
+                fgColor: *blue
+                bgColor: *background
+                toggleOnColor: *red
+                toggleOffColor: *grey
+            help:
+              fgColor: *grey
+              bgColor: *background
+              indicator:
+                fgColor: *blue
       '';
     };
   };

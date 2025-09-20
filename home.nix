@@ -25,7 +25,6 @@ in
     #code
     nodejs_24
     docker
-    python314
     pnpm
     bun
     poetry
@@ -38,6 +37,8 @@ in
     tmux
     taskwarrior3
     jq
+    direnv
+    nix-direnv
     # utility
     nitrogen
     redshift
