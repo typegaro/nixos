@@ -8,10 +8,10 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./modules/virtualbox.nix
       ./modules/bluetooth.nix
       ./modules/pipewire.nix
       ./modules/nvidia.nix
+      ./modules/virt-manager.nix
     ];
 
   # Bootloader.
@@ -56,7 +56,7 @@
   users.users.garo = {
     isNormalUser = true;
     description = "garo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };

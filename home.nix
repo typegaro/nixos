@@ -28,6 +28,8 @@ in
     pnpm
     bun
     poetry
+    rust
+    cargo
     #tools
     k9s
     opencode
@@ -40,6 +42,10 @@ in
     direnv
     nix-direnv
     codex
+    qemu
+    virt-manager
+    virt-viewer
+    spice-gtk
     # utility
     nitrogen
     redshift
