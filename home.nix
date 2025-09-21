@@ -39,6 +39,7 @@ in
     jq
     direnv
     nix-direnv
+    codex
     # utility
     nitrogen
     redshift
