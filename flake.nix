@@ -9,11 +9,12 @@
 
   outputs = { self, nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-linux";
+      linuxSystem = "x86_64-linux";
+      darwinSystem = "aarch64-darwin";
       username = "garo";
     in {
       nixosConfigurations.main = nixpkgs.lib.nixosSystem {
-        system = system;
+        system = linuxSystem;
         modules = [
           ./configuration.nix
           home-manager.nixosModules.home-manager
@@ -22,6 +23,13 @@
             home-manager.useUserPackages = true;
             home-manager.users.${username} = import ./home.nix;
           }
+        ];
+      };
+
+      homeConfigurations."${username}@macbook" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = darwinSystem; };
+        modules = [
+          ./home-darwin.nix
         ];
       };
     };

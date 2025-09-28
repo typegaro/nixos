@@ -2,7 +2,7 @@
 {
   options."dunst".enable = lib.mkEnableOption "Dunst notification daemon";
 
-  config = lib.mkIf config."dunst".enable {
+  config = lib.mkIf (config."dunst".enable && pkgs.stdenv.hostPlatform.isLinux) {
     services.dunst = {
       enable = true;
       package = pkgs.dunst;

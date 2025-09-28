@@ -2,7 +2,7 @@
 
 {
   options."sxhkd".enable = lib.mkEnableOption "SXHKD keybindings";
-  config = lib.mkIf config."sxhkd".enable {
+  config = lib.mkIf (config."sxhkd".enable && pkgs.stdenv.hostPlatform.isLinux) {
     services.sxhkd = {
       enable = true;
       keybindings = {
