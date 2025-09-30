@@ -56,7 +56,7 @@
   users.users.garo = {
     isNormalUser = true;
     description = "garo";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "docker" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -75,6 +75,7 @@
     neofetch
     eza
     unzip
+    devenv    
   ];
 
   fonts.packages = with pkgs; [
@@ -101,10 +102,18 @@
   };
   virtualisation.docker = {
       enable = true;
-      rootless.enable = true;
+      # Mantieni rootful + gruppo docker per usare senza sudo
+      # Se preferisci rootless, dimmelo e configuro anche DOCKER_HOST
+      # o abilito setSocketVariable.
+      rootless.enable = false;
   };
 
   pipewire.enable = true;
+
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
 
   system.stateVersion = "25.05"; 
 }

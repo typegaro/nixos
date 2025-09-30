@@ -17,6 +17,12 @@ in
       enable = true;
       vSync = true;
   };
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      vscodevim.vim
+    ];
+  };
   home.packages = with pkgs; [
     discord
     prismlauncher
@@ -28,8 +34,9 @@ in
     pnpm
     bun
     poetry
-    rust
     cargo
+    rustc
+    rust-analyzer
     #tools
     k9s
     opencode
