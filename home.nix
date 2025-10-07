@@ -39,13 +39,15 @@ in
     rust-analyzer
     #tools
     k9s
-    opencode
+    awscli2
     opentofu
     helm
     kubectl
     tmux
     taskwarrior3
     jq
+    sops
+    age
     direnv
     nix-direnv
     codex
@@ -61,6 +63,7 @@ in
     xclip
     nix-index
     playerctl
+    networkmanager-openvpn
   ] ++ [
     bookmarks
     config
