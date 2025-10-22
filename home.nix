@@ -31,12 +31,7 @@ in
     #code
     nodejs_24
     docker
-    pnpm
-    bun
     poetry
-    cargo
-    rustc
-    rust-analyzer
     #tools
     k9s
     awscli2
@@ -55,6 +50,7 @@ in
     virt-manager
     virt-viewer
     spice-gtk
+    emacs
     # utility
     nitrogen
     redshift
@@ -64,6 +60,7 @@ in
     nix-index
     playerctl
     networkmanager-openvpn
+    lmstudio
   ] ++ [
     bookmarks
     config

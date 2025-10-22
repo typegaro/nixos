@@ -24,6 +24,7 @@
       };
 
       shellAliases = {
+        wf = "~/Prj/workforge/bin/wf";
         # ls (eza)
         ll = "eza --icons -al --color=always --group-directories-first";
         la = "eza --icons -a --color=always --group-directories-first";
