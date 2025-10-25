@@ -51,6 +51,7 @@ in
     virt-viewer
     spice-gtk
     emacs
+    glances
     # utility
     nitrogen
     redshift
@@ -61,6 +62,7 @@ in
     playerctl
     networkmanager-openvpn
     lmstudio
+    ollama
   ] ++ [
     bookmarks
     config

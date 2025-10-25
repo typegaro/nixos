@@ -12,7 +12,6 @@
       ./modules/pipewire.nix
       ./modules/nvidia.nix
       ./modules/virt-manager.nix
-      ./modules/ollama.nix
     ];
 
   # Bootloader.
@@ -20,6 +19,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "main"; # Define your hostname.
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 1234 11434 ];
+  };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

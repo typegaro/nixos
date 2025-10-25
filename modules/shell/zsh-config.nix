@@ -25,6 +25,7 @@
 
       shellAliases = {
         wf = "~/Prj/workforge/bin/wf";
+        docker-nuke = "docker system prune -a --volumes";
         # ls (eza)
         ll = "eza --icons -al --color=always --group-directories-first";
         la = "eza --icons -a --color=always --group-directories-first";
