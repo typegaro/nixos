@@ -52,6 +52,7 @@ in
     spice-gtk
     emacs
     glances
+    lazygit
     # utility
     nitrogen
     redshift
@@ -62,7 +63,6 @@ in
     playerctl
     networkmanager-openvpn
     lmstudio
-    ollama
   ] ++ [
     bookmarks
     config
