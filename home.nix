@@ -16,6 +16,17 @@ in
   services.picom = {
       enable = true;
       vSync = true;
+      backend = "glx";
+      package = pkgs.picom;
+      settings = {
+        # Evita tearing e flicker su NVIDIA
+        unredir-if-possible = false;
+        use-damage = false;
+        glx-no-rebind-pixmap = true;
+        glx-no-stencil = true;
+        # Lascia a 0 per auto-detect refresh, evita mismatch
+        refresh-rate = 0;
+      };
   };
   programs.vscode = {
     enable = true;
@@ -63,6 +74,7 @@ in
     playerctl
     networkmanager-openvpn
     lmstudio
+    jetbrains.idea-community
   ] ++ [
     bookmarks
     config

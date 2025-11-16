@@ -12,6 +12,7 @@
       ./modules/pipewire.nix
       ./modules/nvidia.nix
       ./modules/virt-manager.nix
+      ./modules/disks.nix
     ];
 
   # Bootloader.

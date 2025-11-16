@@ -35,6 +35,10 @@
 
         # update (NixOS)
         nixs= "sudo nixos-rebuild switch --flake ~/Nix";
+        # upgrade (aggiorna flake + switch)
+        nixup = "nix flake update ~/Nix && sudo nixos-rebuild switch --flake ~/Nix";
+        # cleanup (rimuove vecchie build/versioni)
+        nixgc = "nix-collect-garbage -d && sudo nix-collect-garbage -d";
 
         # task
         ts = "task status";
