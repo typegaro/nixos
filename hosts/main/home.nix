@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
 let
-  bookmarks = pkgs.callPackage ./pkgs/bookmarks.nix { };
-  config= pkgs.callPackage ./pkgs/config.nix { };
-  mount = pkgs.callPackage ./pkgs/mount.nix { };
-  projects = pkgs.callPackage ./pkgs/projects.nix { };
-  run_notify = pkgs.callPackage ./pkgs/run-notify.nix { };
-  switch_audio_output = pkgs.callPackage ./pkgs/switch-audio-output.nix { };
-  umont = pkgs.callPackage ./pkgs/umont.nix { };
-  vpn = pkgs.callPackage ./pkgs/vpn.nix { };
+  bookmarks = pkgs.callPackage ../../pkgs/bookmarks.nix { };
+  config = pkgs.callPackage ../../pkgs/config.nix { };
+  mount = pkgs.callPackage ../../pkgs/mount.nix { };
+  projects = pkgs.callPackage ../../pkgs/projects.nix { };
+  run_notify = pkgs.callPackage ../../pkgs/run-notify.nix { };
+  switch_audio_output = pkgs.callPackage ../../pkgs/switch-audio-output.nix { };
+  umont = pkgs.callPackage ../../pkgs/umont.nix { };
+  vpn = pkgs.callPackage ../../pkgs/vpn.nix { };
 in
 {
   home.username = "garo";
@@ -26,6 +26,7 @@ in
         glx-no-stencil = true;
         # Lascia a 0 per auto-detect refresh, evita mismatch
         refresh-rate = 0;
+        blur-method = "kernel";
       };
   };
   programs.vscode = {
@@ -56,12 +57,10 @@ in
     age
     direnv
     nix-direnv
-    codex
     qemu
     virt-manager
     virt-viewer
     spice-gtk
-    emacs
     glances
     lazygit
     # utility
@@ -73,8 +72,11 @@ in
     nix-index
     playerctl
     networkmanager-openvpn
+    pcmanfm
+    #AI 
     lmstudio
-    jetbrains.idea-community
+    codex
+    opencode
   ] ++ [
     bookmarks
     config
@@ -87,13 +89,17 @@ in
   ];
 
   imports = [
-    ./modules/shell/shell.nix
-    ./modules/term/term.nix
-    ./modules/tool/tool.nix
+    ../../modules/shell/shell.nix
+    ../../modules/term/term.nix
+    ../../modules/tool/tool.nix
   ];
 
   zsh-config.enable = true;
-  ghostty.enable = true;
+  ghostty = {
+    enable = true;
+    fontSize = 14;
+    backgroundOpacity = 0.8;
+  };
   sxhkd.enable = true;
   dunst.enable = true;
   tmux.enable = true;

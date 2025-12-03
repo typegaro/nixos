@@ -8,11 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./modules/bluetooth.nix
-      ./modules/pipewire.nix
-      ./modules/nvidia.nix
-      ./modules/virt-manager.nix
-      ./modules/disks.nix
+      ../../modules/bluetooth.nix
+      ../../modules/pipewire.nix
+      ../../modules/nvidia.nix
+      ../../modules/virt-manager.nix
+      ../../modules/disks.nix
     ];
 
   # Bootloader.
@@ -85,6 +85,7 @@
 
   fonts.packages = with pkgs; [
 	nerd-fonts.mononoki
+    #noto-fonts-cjk
   ];
 
   environment.pathsToLink = ["/libexec"];

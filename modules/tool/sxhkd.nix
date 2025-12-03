@@ -25,7 +25,7 @@
 
         "alt + shift + v" = ''vpn'';
 
-        "alt + shift + t; {m}" = ''{pactl set-source-mute @DEFAULT_SOURCE@ toggle}'';
+        "alt + shift + t" = ''pcmanfm'';
       };
     };
   };

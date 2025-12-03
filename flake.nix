@@ -1,5 +1,5 @@
 {
-  description = "Flake unico: NixOS + macOS Home Manager";
+  description = "Multi-host Nix flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -8,34 +8,34 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
-  let
-    linuxSystem = "x86_64-linux";
-    darwinSystem = "aarch64-darwin"; # Apple Silicon
-  in {
-    nixosConfigurations.main = nixpkgs.lib.nixosSystem {
-      system = linuxSystem;
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.garo = import ./home.nix; # il tuo HM Linux esistente
-        }
-      ];
-    };
-
-    homeConfigurations."typegaro@macbook" =
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = darwinSystem;
-          config.allowUnfree = true;
+    let
+      hosts = {
+        main = {
+          system = "x86_64-linux";
+          configuration = ./hosts/main/configuration.nix;
+          username = "garo";
+          homeConfig = ./hosts/main/home.nix;
         };
-        modules = [
-          ./mac-home.nix
-        ];
-        extraSpecialArgs = { inputs = inputs; username = "typegaro"; hostname = "macbook"; };
       };
-  };
+
+      mkNixosHost = name: { system, configuration, username ? null, homeConfig ? null }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules =
+            [
+              configuration
+            ]
+            ++ (if homeConfig == null || username == null then [ ] else [
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.${username} = import homeConfig;
+              }
+            ]);
+          specialArgs = { inherit inputs; };
+        };
+    in {
+      nixosConfigurations = builtins.mapAttrs mkNixosHost hosts;
+    };
 }
- 

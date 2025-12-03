@@ -6,8 +6,6 @@
     qemu = {
       package = pkgs.qemu_kvm;
       swtpm.enable = true;     # enable TPM emulation for modern guests
-      ovmf.enable = true;      # UEFI firmware for VMs
-      ovmf.packages = [ pkgs.OVMFFull.fd ];
       # runAsRoot = false;     # uncomment if you want user-mode qemu
     };
   };
@@ -25,4 +23,3 @@
   # Trust the default libvirt bridge to avoid local firewall issues
   networking.firewall.trustedInterfaces = [ "virbr0" ];
 }
-
