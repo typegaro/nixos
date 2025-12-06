@@ -9,12 +9,20 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      hosts = {
+      nixosHosts = {
         main = {
           system = "x86_64-linux";
           configuration = ./hosts/main/configuration.nix;
           username = "garo";
           homeConfig = ./hosts/main/home.nix;
+        };
+      };
+
+      homeHosts = {
+        macbook = {
+          system = "aarch64-darwin";
+          username = "garo";
+          homeConfig = ./hosts/macbook/home.nix;
         };
       };
 
@@ -35,7 +43,15 @@
             ]);
           specialArgs = { inherit inputs; };
         };
+
+      mkHomeHost = name: { system, homeConfig, ... }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          modules = [ homeConfig ];
+          extraSpecialArgs = { inherit inputs; };
+        };
     in {
-      nixosConfigurations = builtins.mapAttrs mkNixosHost hosts;
+      nixosConfigurations = builtins.mapAttrs mkNixosHost nixosHosts;
+      homeConfigurations = builtins.mapAttrs mkHomeHost homeHosts;
     };
 }

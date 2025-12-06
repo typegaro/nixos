@@ -94,7 +94,10 @@ in
     ../../modules/tool/tool.nix
   ];
 
-  zsh-config.enable = true;
+  zsh-config = {
+    enable = true;
+    nixSwitchCommand = "sudo nixos-rebuild switch --flake ~/Nix";
+  };
   ghostty = {
     enable = true;
     fontSize = 14;
