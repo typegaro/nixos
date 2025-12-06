@@ -1,9 +1,19 @@
 { config, lib, pkgs, ... }:
-
+let
+  cfg = config."zsh-config";
+in
 {
-  options."zsh-config".enable = lib.mkEnableOption "Enable custom zsh config";
+  options."zsh-config" = {
+    enable = lib.mkEnableOption "Enable custom zsh config";
 
-  config = lib.mkIf config."zsh-config".enable {
+    nixSwitchCommand = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Command used by the nixs alias to switch the system or home configuration.";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     # Assicura XDG per la history path
     xdg.enable = true;
 
@@ -34,7 +44,6 @@
         ltf = "eza --icons -aT --color=always --group-directories-first -L 100";
 
         # update (NixOS)
-        nixs= "sudo nixos-rebuild switch --flake ~/Nix";
         nixgc = "sudo nix-collect-garbage -d";
 
         # task
@@ -98,6 +107,8 @@
         moon = "curl wttr.in/moon";
         weather = "curl --silent wttr.in | head -n 6";
         coffee = "curl -L git.io/coffee ";
+      } // lib.optionalAttrs (cfg.nixSwitchCommand != null) {
+        nixs = cfg.nixSwitchCommand;
       };
 
       initContent = ''
