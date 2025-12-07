@@ -10,8 +10,13 @@
   home.packages = with pkgs; [
     neovim
     brave
+    zen
     codex
     nodejs_24
+    aerospace
+    #Terminal tool
+    neofetch
+    eza
   ];
 
   imports = [
@@ -27,8 +32,8 @@
 
   ghostty = {
     enable = true;
-    fontSize = 14;
-    backgroundOpacity = 0.8;
+    fontSize = 15;
+    backgroundOpacity = 1.0;
   };
 
   tmux.enable = true;
