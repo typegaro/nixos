@@ -10,13 +10,13 @@
   home.packages = with pkgs; [
     neovim
     brave
-    zen
     codex
     nodejs_24
     aerospace
     #Terminal tool
     neofetch
     eza
+    wget
   ];
 
   imports = [
