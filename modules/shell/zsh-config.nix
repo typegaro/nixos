@@ -112,8 +112,7 @@ in
       };
 
       initContent = ''
-        # colori + prompt
-	tmux new -As labda
+	    tmux new -As λ
         autoload -U colors && colors
         PS1="%{$fg[magenta]%}%~%b λ "
         neofetch
