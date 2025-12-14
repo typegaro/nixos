@@ -45,6 +45,8 @@ in
 
         # update (NixOS)
         nixgc = "sudo nix-collect-garbage -d";
+        nixprune = "sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +2";
+        nixclean = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
 
         # task
         ts = "task status";

@@ -71,14 +71,12 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    neovim     
     wget
     git
     curl
     ghostty
     brave
     neofetch
-    eza
     unzip
     devenv    
   ];

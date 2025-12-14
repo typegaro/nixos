@@ -40,40 +40,16 @@ in
     prismlauncher
     flameshot
     localsend
-    #code
-    nodejs_24
     docker
     poetry
-    #tools
-    k9s
-    awscli2
-    opentofu
-    helm
-    kubectl
-    tmux
-    taskwarrior3
-    jq
-    sops
-    age
-    direnv
-    nix-direnv
     qemu
     virt-manager
     virt-viewer
     spice-gtk
-    glances
-    lazygit
-    # utility
     nitrogen
     redshift
-    ripgrep
-    toybox
-    xclip
-    nix-index
-    playerctl
     networkmanager-openvpn
     pcmanfm
-    #AI 
     lmstudio
     codex
     opencode
@@ -94,6 +70,10 @@ in
     ../../modules/tool/tool.nix
   ];
 
+  linuxBase.enable = true;
+  nvimStack.enable = true;
+  k8sStack.enable = true;
+
   zsh-config = {
     enable = true;
     nixSwitchCommand = "sudo nixos-rebuild switch --flake ~/Nix";
@@ -106,7 +86,6 @@ in
   sxhkd.enable = true;
   dunst.enable = true;
   tmux.enable = true;
-  k9s.enable = true;
 
   programs.git = {
     enable = true;
