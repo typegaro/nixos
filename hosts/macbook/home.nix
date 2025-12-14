@@ -47,5 +47,10 @@
       au = "add -u";
       cvn = "commit -m\"very nice\"";
     };
+    extraConfig = {
+      diff.tool = "vimdiff";
+      merge.tool = "vimdiff";
+      mergetool.keepBackup = false;
+    };
   };
 }
