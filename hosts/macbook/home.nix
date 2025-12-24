@@ -23,12 +23,18 @@
     ../../modules/shell/shell.nix
     ../../modules/term/term.nix
     ../../modules/tool/tool.nix
+    ../../modules/leng/leng.nix
   ];
 
   zsh-config = {
     enable = true;
     nixSwitchCommand = "nix run home-manager/master -- switch --flake ~/Nix#macbook";
   };
+
+  linuxBase.enable = true;
+  nvimStack.enable = true;
+  k8sStack.enable = false;
+  rust.enable = true;
 
   ghostty = {
     enable = true;

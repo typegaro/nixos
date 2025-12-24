@@ -1,16 +1,16 @@
 { lib, config, pkgs, ... }:
 
 let
-  packages = with pkgs; [
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+
+  basePackages = with pkgs; [
     age
-    direnv
     eza
     glances
     jq
     lazygit
-    nix-direnv
     nix-index
-    playerctl
+    #playerctl
     ripgrep
     sops
     taskwarrior3
@@ -18,6 +18,12 @@ let
     toybox
     xclip
   ];
+
+  packages = basePackages
+    ++ lib.optionals (!isDarwin) (with pkgs; [
+      direnv
+      nix-direnv
+    ]);
 in {
   options.linuxBase.enable =
     lib.mkEnableOption "Bundle of commonly used CLI tooling (ls, search, secrets, etc.).";
@@ -26,4 +32,3 @@ in {
     home.packages = packages;
   };
 }
-
