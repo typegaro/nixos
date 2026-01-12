@@ -122,9 +122,11 @@ in
       cvn = "commit -m\"very nice\"";
     };
     extraConfig = {
-      diff.tool = "vimdiff";
-      merge.tool = "vimdiff";
+      diff.tool = "nvimdiff";
+      merge.tool = "nvimdiff";
       mergetool.keepBackup = false;
+      difftool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
+      mergetool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\" -c 'wincmd J | wincmd ='";
     };
   };
 }
