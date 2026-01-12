@@ -22,7 +22,7 @@
   networking.hostName = "main"; # Define your hostname.
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 1234 11434 ];
+    allowedTCPPorts = [ 1234 8000 8001 8080 8081 11434 ];
   };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -82,21 +82,21 @@
   ];
 
   fonts.packages = with pkgs; [
-	nerd-fonts.mononoki
-    #noto-fonts-cjk
+    nerd-fonts.mononoki
+    noto-fonts-cjk-sans
   ];
 
   environment.pathsToLink = ["/libexec"];
   services.xserver = {
-  	enable = true;
+	enable = true;
 	desktopManager = {
 		xterm.enable = false;
 	};
-  	windowManager.i3 = {
-        	enable = true;
-		extraPackages = with pkgs; [ dmenu ];
-   	};
-   };
+	windowManager.i3 = {
+	  enable = true;
+	  extraPackages = with pkgs; [ dmenu ];
+	};
+  };
    services.displayManager.defaultSession = "none+i3";
    programs.steam = {
     enable = true;

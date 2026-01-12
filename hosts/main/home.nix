@@ -37,6 +37,7 @@ in
   };
   home.packages = with pkgs; [
     discord
+    telegram-desktop
     prismlauncher
     flameshot
     localsend
@@ -53,6 +54,7 @@ in
     lmstudio
     codex
     opencode
+    claude-code
   ] ++ [
     bookmarks
     config
@@ -82,6 +84,29 @@ in
     enable = true;
     fontSize = 14;
     backgroundOpacity = 0.8;
+  };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+    };
+  };
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style = {
+      package = pkgs.adwaita-qt;
+      name = "adwaita-dark";
+    };
   };
   sxhkd.enable = true;
   dunst.enable = true;
