@@ -7,12 +7,18 @@
   programs.home-manager.enable = true;
   home.sessionPath = [ "/opt/homebrew/bin" ];
 
+  nix.package = pkgs.nix;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   home.packages = with pkgs; [
     neovim
     brave
     codex
     nodejs_24
     aerospace
+
+    devenv
+
     #Terminal tool
     neofetch
     eza
@@ -43,6 +49,9 @@
   };
 
   tmux.enable = true;
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 
   programs.git = {
     enable = true;
