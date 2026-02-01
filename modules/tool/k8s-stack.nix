@@ -3,7 +3,7 @@
 let
   packages = with pkgs; [
     awscli2
-    helm
+    kubernetes-helm
     k9s
     kubectl
     opentofu

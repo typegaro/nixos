@@ -31,6 +31,7 @@ in
       sessionVariables = {
         TERM = "xterm-256color";
         TERMINAL = "ghostty";
+        EDITOR = "nvim";
       };
 
       shellAliases = {
@@ -114,7 +115,6 @@ in
       };
 
       initContent = ''
-	    tmux new -As λ
         autoload -U colors && colors
         PS1="%{$fg[magenta]%}%~%b λ "
         neofetch

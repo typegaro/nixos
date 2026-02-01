@@ -55,6 +55,7 @@ in
     codex
     opencode
     claude-code
+    obsidian
   ] ++ [
     bookmarks
     config

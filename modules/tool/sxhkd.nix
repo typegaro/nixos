@@ -47,7 +47,7 @@ in
       services.sxhkd = {
         enable = true;
         keybindings = {
-          "alt + shift + Return" = ''projects'';
+          "alt + shift + Return" = ''/usr/local/bin/wf open "$(/usr/local/bin/wf list | dmenu -i -l 20)"'';
 
           "alt + w" = ''run-notify "brave" "Brave starting"'';
 
@@ -57,8 +57,6 @@ in
             pkill -USR1 -x sxhkd
             sxhkd
           '';
-
-          "alt + shift + e" = ''config'';
 
           "alt + shift + m; {space,j,k,p,d,s}" = ''{playerctl play-pause,run-notify "amixer set Master 5%- unmute" "Volume down",run-notify "amixer set Master 5%+ unmute" "Volume up", mpv --no-video --volume=50 "$(xclip -selection clipboard -o)",run-notify "killall mpv" "mpv killed",switch-audio-output}'';
 
