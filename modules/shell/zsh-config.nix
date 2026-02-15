@@ -118,6 +118,7 @@ in
         autoload -U colors && colors
         PS1="%{$fg[magenta]%}%~%b λ "
         neofetch
+        eval "$(direnv hook zsh)"
       '';
     };
   };

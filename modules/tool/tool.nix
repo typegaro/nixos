@@ -9,5 +9,7 @@
     ./linux-base.nix
     ./nvim-stack.nix
     ./k8s-stack.nix
+    ./git-config.nix
+    ./jupyter-notebook.nix
   ];
 }

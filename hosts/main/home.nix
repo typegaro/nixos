@@ -42,7 +42,6 @@ in
     flameshot
     localsend
     docker
-    poetry
     qemu
     virt-manager
     virt-viewer
@@ -56,6 +55,8 @@ in
     opencode
     claude-code
     obsidian
+    libnotify
+    gnupg
   ] ++ [
     bookmarks
     config
@@ -76,16 +77,19 @@ in
   linuxBase.enable = true;
   nvimStack.enable = true;
   k8sStack.enable = true;
+  jupyterNotebook.enable = true;
 
   zsh-config = {
     enable = true;
     nixSwitchCommand = "sudo nixos-rebuild switch --flake ~/Nix";
   };
+
   ghostty = {
     enable = true;
     fontSize = 14;
-    backgroundOpacity = 0.8;
+    backgroundOpacity = 0.9;
   };
+
   gtk = {
     enable = true;
     theme = {
@@ -112,22 +116,5 @@ in
   sxhkd.enable = true;
   dunst.enable = true;
   tmux.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "typegaro";
-    userEmail = "lorenzo.di.giovanni00@gmail.com";
-    aliases = {
-      s = "status";
-      au = "add -u";
-      cvn = "commit -m\"very nice\"";
-    };
-    extraConfig = {
-      diff.tool = "nvimdiff";
-      merge.tool = "nvimdiff";
-      mergetool.keepBackup = false;
-      difftool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"";
-      mergetool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\" -c 'wincmd J | wincmd ='";
-    };
-  };
+  gitConfig.enable = true;
 }
