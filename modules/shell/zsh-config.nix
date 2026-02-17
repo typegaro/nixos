@@ -13,113 +13,124 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    # Assicura XDG per la history path
-    xdg.enable = true;
-
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-
-      history = {
-        size = 10000;
-        save = 10000;
+  config = lib.mkMerge [
+    {
+      programs.nushell = {
+        enable = lib.mkDefault true;
+        settings = {
+          show_banner = false;
+        };
+        extraConfig = ''
+            , fastfetch
+        '';
       };
+    }
+    (lib.mkIf cfg.enable {
+      # Assicura XDG per la history path
+      xdg.enable = true;
 
-      sessionVariables = {
-        TERM = "xterm-256color";
-        TERMINAL = "ghostty";
-        EDITOR = "nvim";
-      };
+    home.shellAliases = {
+      wf = "~/Prj/workforge/bin/wf";
+      docker-nuke = "docker system prune -a --volumes";
+      # update (NixOS)
+      nixgc = "sudo nix-collect-garbage -d";
+      nixprune = "sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +2";
 
-      shellAliases = {
-        wf = "~/Prj/workforge/bin/wf";
-        docker-nuke = "docker system prune -a --volumes";
-        # ls (eza)
-        ll = "eza --icons -al --color=always --group-directories-first";
-        la = "eza --icons -a --color=always --group-directories-first";
-        ls = "eza --icons -l --color=always --group-directories-first ";
-        lt = "eza --icons -aT --color=always --group-directories-first -L 2";
-        ltf = "eza --icons -aT --color=always --group-directories-first -L 100";
+      # task
+      ts = "task status";
+      ta = "task add";
 
-        # update (NixOS)
-        nixgc = "sudo nix-collect-garbage -d";
-        nixprune = "sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +2";
-        nixclean = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
+      # k9s
+      k9sh = "k9s --kubeconfig=/home/garo/.kube/config-homelab";
+      k9sw = "k9s --kubeconfig=/home/garo/.kube/config-work";
 
-        # task
-        ts = "task status";
-        ta = "task add";
+      # helm
+      helmh = "helm --kubeconfig ~/.kube/config-homelab";
+      helmfileh = "helmfile --kubeconfig ~/.kube/config-homelab";
 
-        # python
-        psource = "source prjenv/bin/activate";
+      # kubectl
+      kh = "kubectl --kubeconfig=/home/garo/.kube/config-homelab";
+      kw = "kubectl --kubeconfig=/home/garo/.kube/config-work";
+      k = "kubectl";
 
-        # k9s
-        k9sh = "k9s --kubeconfig=/home/garo/.kube/config-homelab";
-        k9sw = "k9s --kubeconfig=/home/garo/.kube/config-work";
+      # nvim
+      v = "nvim";
 
-        # helm
-        helmh = "helm --kubeconfig ~/.kube/config-homelab";
-        helmfileh = "helmfile --kubeconfig ~/.kube/config-homelab";
+      # yt-dlp
+      ydp = ''yt-dlp -i -f best -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --extract-audio --audio-format mp3 --embed-metadata --parse-metadata "artist:%(uploader)s" --parse-metadata "album:%(playlist_title)s"'';
+      yds = ''yt-dlp -i -f best -o "%(title)s.%(ext)s" --extract-audio --audio-format mp3 --embed-metadata --parse-metadata "artist:%(uploader)s" --parse-metadata "album:%(title)s"'';
 
-        # kubectl
-        kh = "kubectl --kubeconfig=/home/garo/.kube/config-homelab";
-        kw = "kubectl --kubeconfig=/home/garo/.kube/config-work";
-        k = "kubectl";
+      # git
+      config = "/usr/bin/git --git-dir=$HOME/Dotfiles.git/ --work-tree=$HOME";
+      gitg = "git log --oneline --decorate --graph --all --parents";
 
-        # nvim
-        v = "nvim";
+      # redshift
+      red = "redshift -O 4100";
 
-        # yt-dlp
-        ydp = ''yt-dlp -i -f best -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --extract-audio --audio-format mp3 --embed-metadata --parse-metadata "artist:%(uploader)s" --parse-metadata "album:%(playlist_title)s"'';
-        yds = ''yt-dlp -i -f best -o "%(title)s.%(ext)s" --extract-audio --audio-format mp3 --embed-metadata --parse-metadata "artist:%(uploader)s" --parse-metadata "album:%(title)s"'';
+      # cat
+      dog = "bat";
 
-        # git
-        config = "/usr/bin/git --git-dir=$HOME/Dotfiles.git/ --work-tree=$HOME";
-        gitg = "git log --oneline --decorate --graph --all --parents";
+      # shortcuts
+      compose = "setxkbmap -layout us -option compose:menu";
 
-        # redshift
-        red = "redshift -O 4100";
+      # grep
+      grep = "grep --color=auto";
 
-        # cat
-        dog = "bat";
+      # conferme
+      cp = "cp -i";
+      mv = "mv -i";
 
-        # shortcuts
-        compose = "setxkbmap -layout us -option compose:menu";
-
-        # grep
-        grep = "grep --color=auto";
-
-        # conferme
-        cp = "cp -i";
-        mv = "mv -i";
-
-        # info
-        free = "free -m";
-        crypto = "curl -s rate.sx";
-        price = "curl -s rate.sx/doge |awk 'NR==34'";
-        zcash= "curl -s rate.sx/zcash";
-        btc = "curl -s rate.sx/btc";
-        cpu = "ps ax -o cmd,%cpu --sort=-%cpu | head ";
-        ram = "ps ax -o cmd,%mem --sort=-%mem | head ";
-        gpu = "nvidia-smi | sed -n '10p' | boxes -d stone -p a2v1 | lolcat -f";
-        status = "cpu;gpu;ram";
-        rice = "curl -L rum.sh/ricebowl";
-        moon = "curl wttr.in/moon";
-        weather = "curl --silent wttr.in | head -n 6";
-        coffee = "curl -L git.io/coffee ";
-      } // lib.optionalAttrs (cfg.nixSwitchCommand != null) {
-        nixs = cfg.nixSwitchCommand;
-      };
-
-      initContent = ''
-        autoload -U colors && colors
-        PS1="%{$fg[magenta]%}%~%b λ "
-        neofetch
-        eval "$(direnv hook zsh)"
-      '';
+      # info
+      free = "free -m";
+      crypto = "curl -s rate.sx";
+      price = "curl -s rate.sx/doge |awk 'NR==34'";
+      zcash = "curl -s rate.sx/zcash";
+      btc = "curl -s rate.sx/btc";
+      gpu = "nvidia-smi | sed -n '10p' | boxes -d stone -p a2v1 | lolcat -f";
+      status = "gpu";
+      rice = "curl -L rum.sh/ricebowl";
+      moon = "curl wttr.in/moon";
+      weather = "curl --silent wttr.in | head -n 6";
+      coffee = "curl -L git.io/coffee ";
+    } // lib.optionalAttrs (cfg.nixSwitchCommand != null) {
+      nixs = cfg.nixSwitchCommand;
     };
-  };
+
+      programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
+
+        shellAliases = {
+          # ls (eza)
+          ll = "eza --icons -al --color=always --group-directories-first";
+          la = "eza --icons -a --color=always --group-directories-first";
+          ls = "eza --icons -l --color=always --group-directories-first ";
+          lt = "eza --icons -aT --color=always --group-directories-first -L 2";
+          ltf = "eza --icons -aT --color=always --group-directories-first -L 100";
+
+          nixclean = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
+        };
+
+        history = {
+          size = 10000;
+          save = 10000;
+        };
+
+        sessionVariables = {
+          TERM = "xterm-256color";
+          TERMINAL = "ghostty";
+          EDITOR = "nvim";
+        };
+
+        initContent = ''
+          autoload -U colors && colors
+          PS1="%{$fg[magenta]%}%~%b λ "
+          neofetch
+          eval "$(direnv hook zsh)"
+        '';
+      };
+    })
+  ];
 }

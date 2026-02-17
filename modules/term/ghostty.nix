@@ -30,7 +30,7 @@ in
       window-decoration = false
       background-opacity = ${toString cfg.backgroundOpacity}
       cursor-style = block
-      shell-integration = zsh
+      shell-integration = detect
     '';
   };
 }

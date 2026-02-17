@@ -13,6 +13,7 @@
       ../../modules/nvidia.nix
       ../../modules/virt-manager.nix
       ../../modules/disks.nix
+      ../../modules/nix-index.nix
     ];
 
   # Bootloader.
@@ -58,12 +59,13 @@
   };
 
   programs.zsh.enable = true;
+  environment.shells = [ pkgs.nushell ];
   users.users.garo = {
     isNormalUser = true;
     description = "garo";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "docker" ];
     packages = with pkgs; [];
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -118,6 +120,19 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+
+  nixIndex.enable = true;
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+      curl
+      icu
+    ];
+  };
 
 
   system.stateVersion = "25.05"; 
