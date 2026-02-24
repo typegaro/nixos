@@ -19,21 +19,8 @@ in
       backend = "glx";
       package = pkgs.picom;
       settings = {
-        # Evita tearing e flicker su NVIDIA
-        unredir-if-possible = false;
-        use-damage = false;
-        glx-no-rebind-pixmap = true;
-        glx-no-stencil = true;
-        # Lascia a 0 per auto-detect refresh, evita mismatch
-        refresh-rate = 0;
         blur-method = "kernel";
       };
-  };
-  programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      vscodevim.vim
-    ];
   };
   home.packages = with pkgs; [
     discord
@@ -51,9 +38,6 @@ in
     networkmanager-openvpn
     pcmanfm
     lmstudio
-    codex
-    opencode
-    claude-code
     obsidian
     libnotify
     gnupg
@@ -77,7 +61,6 @@ in
   linuxBase.enable = true;
   nvimStack.enable = true;
   k8sStack.enable = true;
-  jupyterNotebook.enable = true;
 
   zsh-config = {
     enable = true;
@@ -86,7 +69,7 @@ in
 
   ghostty = {
     enable = true;
-    fontSize = 14;
+    fontSize = 13;
     backgroundOpacity = 0.9;
   };
 

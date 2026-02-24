@@ -26,11 +26,11 @@ in
       };
     }
     (lib.mkIf cfg.enable {
-      # Assicura XDG per la history path
       xdg.enable = true;
 
     home.shellAliases = {
-      wf = "~/Prj/workforge/bin/wf";
+      wf = ", bunx workforge-cli";
+      opencode = ", bunx opencode-ai@latest";
       docker-nuke = "docker system prune -a --volumes";
       # update (NixOS)
       nixgc = "sudo nix-collect-garbage -d";
@@ -127,7 +127,7 @@ in
         initContent = ''
           autoload -U colors && colors
           PS1="%{$fg[magenta]%}%~%b λ "
-          neofetch
+          , fastfetch 
           eval "$(direnv hook zsh)"
         '';
       };

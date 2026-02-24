@@ -13,7 +13,6 @@ let
     #playerctl
     ripgrep
     sops
-    taskwarrior3
     tmux
     toybox
     xclip

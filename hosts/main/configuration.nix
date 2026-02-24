@@ -59,13 +59,13 @@
   };
 
   programs.zsh.enable = true;
-  environment.shells = [ pkgs.nushell ];
+  environment.shells = [ pkgs.zsh ];
   users.users.garo = {
     isNormalUser = true;
     description = "garo";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "docker" ];
     packages = with pkgs; [];
-    shell = pkgs.nushell;
+    shell = pkgs.zsh;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
