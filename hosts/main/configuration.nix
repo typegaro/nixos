@@ -23,7 +23,7 @@
   networking.hostName = "main"; # Define your hostname.
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 1234 8000 8001 8080 8081 11434 ];
+    allowedTCPPorts = [ 1234 8000 8001 8080 8081 11434 3838 3000 ];
   };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -100,12 +100,13 @@
 	};
   };
    services.displayManager.defaultSession = "none+i3";
-   programs.steam = {
+  programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; 
     dedicatedServer.openFirewall = true; 
     localNetworkGameTransfers.openFirewall = true;
   };
+
   virtualisation.docker = {
       enable = true;
       # Mantieni rootful + gruppo docker per usare senza sudo

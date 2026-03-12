@@ -28,6 +28,10 @@
 
   zsh-config = {
     enable = true;
+  };
+
+  shell-general = {
+    enable = true;
     nixSwitchCommand = "nix run home-manager/master -- switch --flake ~/Nix#macbook";
   };
 
@@ -45,4 +49,3 @@
   tmux.enable = true;
   gitConfig.enable = true;
 }
-

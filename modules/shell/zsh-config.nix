@@ -1,106 +1,19 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config."zsh-config";
+  sharedShellCfg = config."shell-general";
 in
 {
   options."zsh-config" = {
     enable = lib.mkEnableOption "Enable custom zsh config";
-
-    nixSwitchCommand = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-      description = "Command used by the nixs alias to switch the system or home configuration.";
-    };
   };
 
-  config = lib.mkMerge [
-    {
-      programs.nushell = {
-        enable = lib.mkDefault true;
-        settings = {
-          show_banner = false;
-        };
-        extraConfig = ''
-            , fastfetch
-        '';
-      };
-    }
-    (lib.mkIf cfg.enable {
-      xdg.enable = true;
-
-    home.shellAliases = {
-      wf = ", bunx workforge-cli";
-      opencode = ", bunx opencode-ai@latest";
-      docker-nuke = "docker system prune -a --volumes";
-      # update (NixOS)
-      nixgc = "sudo nix-collect-garbage -d";
-      nixprune = "sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +2";
-
-      # task
-      ts = "task status";
-      ta = "task add";
-
-      # k9s
-      k9sh = "k9s --kubeconfig=/home/garo/.kube/config-homelab";
-      k9sw = "k9s --kubeconfig=/home/garo/.kube/config-work";
-
-      # helm
-      helmh = "helm --kubeconfig ~/.kube/config-homelab";
-      helmfileh = "helmfile --kubeconfig ~/.kube/config-homelab";
-
-      # kubectl
-      kh = "kubectl --kubeconfig=/home/garo/.kube/config-homelab";
-      kw = "kubectl --kubeconfig=/home/garo/.kube/config-work";
-      k = "kubectl";
-
-      # nvim
-      v = "nvim";
-
-      # yt-dlp
-      ydp = ''yt-dlp -i -f best -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --extract-audio --audio-format mp3 --embed-metadata --parse-metadata "artist:%(uploader)s" --parse-metadata "album:%(playlist_title)s"'';
-      yds = ''yt-dlp -i -f best -o "%(title)s.%(ext)s" --extract-audio --audio-format mp3 --embed-metadata --parse-metadata "artist:%(uploader)s" --parse-metadata "album:%(title)s"'';
-
-      # git
-      config = "/usr/bin/git --git-dir=$HOME/Dotfiles.git/ --work-tree=$HOME";
-      gitg = "git log --oneline --decorate --graph --all --parents";
-
-      # redshift
-      red = "redshift -O 4100";
-
-      # cat
-      dog = "bat";
-
-      # shortcuts
-      compose = "setxkbmap -layout us -option compose:menu";
-
-      # grep
-      grep = "grep --color=auto";
-
-      # conferme
-      cp = "cp -i";
-      mv = "mv -i";
-
-      # info
-      free = "free -m";
-      crypto = "curl -s rate.sx";
-      price = "curl -s rate.sx/doge |awk 'NR==34'";
-      zcash = "curl -s rate.sx/zcash";
-      btc = "curl -s rate.sx/btc";
-      gpu = "nvidia-smi | sed -n '10p' | boxes -d stone -p a2v1 | lolcat -f";
-      status = "gpu";
-      rice = "curl -L rum.sh/ricebowl";
-      moon = "curl wttr.in/moon";
-      weather = "curl --silent wttr.in | head -n 6";
-      coffee = "curl -L git.io/coffee ";
-    } // lib.optionalAttrs (cfg.nixSwitchCommand != null) {
-      nixs = cfg.nixSwitchCommand;
-    };
-
-      programs.zsh = {
-        enable = true;
-        enableCompletion = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
+  config = lib.mkIf cfg.enable {
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
 
         shellAliases = {
           # ls (eza)
@@ -110,27 +23,31 @@ in
           lt = "eza --icons -aT --color=always --group-directories-first -L 2";
           ltf = "eza --icons -aT --color=always --group-directories-first -L 100";
 
+          ccp="CLAUDE_CONFIG_DIR=~/.claude-personal claude";
+          ccw= "CLAUDE_CONFIG_DIR=~/.claude-work claude";
+          ocw="OPENCODE_CONFIG_DIR=\"$HOME/.config/opencode-work/\" , opencode";
+          ocp="OPENCODE_CONFIG_DIR=\"$HOME/.config/opencode-personal/\" , opencode";
+
           nixclean = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
         };
 
-        history = {
-          size = 10000;
-          save = 10000;
-        };
-
-        sessionVariables = {
-          TERM = "xterm-256color";
-          TERMINAL = "ghostty";
-          EDITOR = "nvim";
-        };
-
-        initContent = ''
-          autoload -U colors && colors
-          PS1="%{$fg[magenta]%}%~%b λ "
-          , fastfetch 
-          eval "$(direnv hook zsh)"
-        '';
+      history = {
+        size = 10000;
+        save = 10000;
       };
-    })
-  ];
+
+      sessionVariables = {
+        TERM = "xterm-256color";
+        TERMINAL = "ghostty";
+        EDITOR = "nvim";
+      };
+
+      initContent = ''
+        autoload -U colors && colors
+        PS1="%{$fg[magenta]%}%~%b λ "
+        ${lib.optionalString (sharedShellCfg.enable && sharedShellCfg.startupCommand != null) sharedShellCfg.startupCommand}
+        eval "$(direnv hook zsh)"
+      '';
+    };
+  };
 }

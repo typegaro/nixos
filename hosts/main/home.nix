@@ -41,6 +41,7 @@ in
     obsidian
     libnotify
     gnupg
+    claude-code
   ] ++ [
     bookmarks
     config
@@ -63,6 +64,10 @@ in
   k8sStack.enable = true;
 
   zsh-config = {
+    enable = true;
+  };
+
+  shell-general = {
     enable = true;
     nixSwitchCommand = "sudo nixos-rebuild switch --flake ~/Nix";
   };
